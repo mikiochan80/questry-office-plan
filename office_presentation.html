@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社クエストリー オフィス構築プロジェクト案</title>
+    <style>
+        :root {
+            --primary-color: #2D3436;
+            --accent-color: #6C5CE7;
+            --bg-color: #F9F9F9;
+            --text-color: #2D3436;
+            --card-bg: #FFFFFF;
+            --font-main: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6C5CE7, #a29bfe);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+        }
+
+        .pattern-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 3rem;
+        }
+
+        .pattern-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .pattern-title h3 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .pattern-specs {
+            background: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            aspect-ratio: 4/3;
+            background: #e0e0e0;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: bold;
+            flex-direction: column;
+            text-align: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .placeholder span {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .pattern-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        .req-grid,
+        .opt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .req-item,
+        .opt-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .opt-item {
+            border-left-color: #ff7675;
+        }
+
+        .req-item h4,
+        .opt-item h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .basic-table th {
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Questry Inc. Office Project</h1>
+        <p>エンタメ業界のイノベーションを加速する、共同ワークスペース構想</p>
+    </header>
+
+    <div class="container">
+
+        <section>
+            <h2>プロジェクトコンセプト</h2>
+            <div class="concept-grid">
+                <div class="card">
+                    <h3>開放的 & コラボレーティブ</h3>
+                    <p>4社のエンタメ企業が交流し、快適に過ごせる広々とした共有スペース。創造性を刺激するオープンな環境。</p>
+                </div>
+                <div class="card">
+                    <h3>柔軟性 & セキュリティ</h3>
+                    <p>映画製作などの短期プロジェクトチームに対応可能な可変性。機密情報を守る高いセキュリティ機能。</p>
+                </div>
+                <div class="card">
+                    <h3>グローバルハブ</h3>
+                    <p>海外パートナーを迎え入れる東京の拠点。出張者が滞在できる機能も視野に入れた設計。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>基本条件</h2>
+            <table class="basic-table">
+                <tr>
+                    <th>対象エリア</th>
+                    <td>恵比寿、中目黒、広尾、六本木</td>
+                </tr>
+                <tr>
+                    <th>利用人数</th>
+                    <td>
+                        <strong>常時:</strong> 約10名 (常駐5名 + 週1-2回5名)<br>
+                        <strong>ピーク時:</strong> 最大25〜30名 (含プロジェクトチーム・海外ゲスト)
+                    </td>
+                </tr>
+                <tr>
+                    <th>物件種別</th>
+                    <td>事務所、SOHO可物件、店舗可物件（カフェ併設の場合）</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>必須機能要件 (Core Requirements)</h2>
+            <div class="req-grid">
+                <div class="req-item">
+                    <h4>① 共同スペース</h4>
+                    <p>開放的で広く使える執務・ラウンジ。フリーアドレス、自然光、パントリー。</p>
+                </div>
+                <div class="req-item">
+                    <h4>② オープンMTG</h4>
+                    <p>多人数で囲めるビッグテーブル。プロジェクター完備。</p>
+                </div>
+                <div class="req-item">
+                    <h4>③ クローズドMTG</h4>
+                    <p>完全個室会議室(6-8名) & オンライン用フォンブース。</p>
+                </div>
+                <div class="req-item">
+                    <h4>④ プロジェクトルーム</h4>
+                    <p>短期チーム用・鍵付き個室。専用NW・電源確保。</p>
+                </div>
+                <div class="req-item">
+                    <h4>⑤ セキュリティ・保管</h4>
+                    <p>壁面収納ロッカー & 管理者限定保管エリア。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>追加オプション (High Value Options)</h2>
+            <p>実現することで物件選択や予算に大きく影響するが、高い付加価値を生む機能。</p>
+            <div class="opt-grid">
+                <div class="opt-item">
+                    <h4>① 宿泊・滞在機能</h4>
+                    <p>海外ゲスト用（月1週間程度）。SOHO物件またはシャワー・仮眠室の設置。</p>
+                </div>
+                <div class="opt-item">
+                    <h4>② カフェ機能</h4>
+                    <p>一般開放・業界ハブ化。路面店・飲食許可物件・セキュリティ分離。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>ゾーニングとコンセプトイメージ案</h2>
+
+            <!-- Pattern A -->
+            <div class="pattern-section">
+                <div class="pattern-header">
+                    <div class="pattern-title">
+                        <h3>パターン A: 必須要件のみ (Core)</h3>
+                        <p>最も機能的で、開放感を最大化したオフィス。</p>
+                    </div>
+                    <div class="pattern-specs">
+                        推奨面積: 130-165㎡ (40-50坪)<br>
+                        <span style="font-size: 0.9em; color: #666;">想定賃料: 月額 100〜150万円 (坪単価 2.5〜3.0万円想定)</span>
+                    </div>
+                </div>
+                <p>広大な「ラウンジ/執務エリア」を中心に構成。ガラス張りの会議室1室とプロジェクトルーム1室を配置し、スタジオのようなシンプルな空間。</p>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🛋️</span>オープンラウンジ<br>(生成待ち)</div>
+                        <div class="caption">広々としたソファ席とビッグテーブル</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🗣️</span>ガラス張り会議室<br>(生成待ち)</div>
+                        <div class="caption">ラウンジから見える開放的な会議室</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🔒</span>プロジェクトルーム<br>(生成待ち)</div>
+                        <div class="caption">集中できるクローズドな制作部屋</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern B -->
+            <div class="pattern-section">
+                <div class="pattern-header">
+                    <div class="pattern-title">
+                        <h3>パターン B: ＋宿泊・滞在機能 (Option ①)</h3>
+                        <p>海外ゲストのための居住機能を追加。</p>
+                    </div>
+                    <div class="pattern-specs">
+                        推奨面積: 165-200㎡ (50-60坪)<br>
+                        <span style="font-size: 0.9em; color: #666;">想定賃料: 月額 125〜180万円 (坪単価 2.5〜3.0万円想定)</span>
+                    </div>
+                </div>
+                <p>執務エリアとは明確に区切られたプライベートな「ゲストスイート」または「仮眠室」を設置。シャワーブースも完備。</p>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🚪</span>ゲストスイート入口<br>(生成待ち)</div>
+                        <div class="caption">執務エリアから隠されたプライベート入口</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🛏️</span>仮眠室・寝室<br>(生成待ち)</div>
+                        <div class="caption">ホテルライクな落ち着いた内装</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🚿</span>シャワーブース<br>(生成待ち)</div>
+                        <div class="caption">清潔感のあるモダンなシャワー室</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern C -->
+            <div class="pattern-section">
+                <div class="pattern-header">
+                    <div class="pattern-title">
+                        <h3>パターン C: ＋カフェ機能 (Option ②)</h3>
+                        <p>業界人が集うカフェ機能を併設。</p>
+                    </div>
+                    <div class="pattern-specs">
+                        推奨面積: 180-215㎡ (55-65坪)<br>
+                        <span style="font-size: 0.9em; color: #666;">想定賃料: 月額 165〜230万円 (店舗物件 坪単価 3.0〜3.5万円想定)</span>
+                    </div>
+                </div>
+                <p>路面または直接アクセスが必要。一般客が入る「パブリックカフェ」と「プライベートオフィス」のセキュリティラインを明確に分離。</p>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>☕</span>カフェファサード<br>(生成待ち)</div>
+                        <div class="caption">街に開かれたカフェの入り口</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🍽️</span>カフェ店内<br>(生成待ち)</div>
+                        <div class="caption">賑わいのあるカフェスペース</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🚧</span>セキュリティゲート<br>(生成待ち)</div>
+                        <div class="caption">カフェとオフィスを分ける境界線</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pattern D -->
+            <div class="pattern-section">
+                <div class="pattern-header">
+                    <div class="pattern-title">
+                        <h3>パターン D: フルスペック</h3>
+                        <p>職・住・遊が融合した究極のハブ。</p>
+                    </div>
+                    <div class="pattern-specs">
+                        推奨面積: 215-265㎡ (65-80坪)<br>
+                        <span style="font-size: 0.9em; color: #666;">想定賃料: 月額 195〜280万円 (坪単価 3.0〜3.5万円想定)</span>
+                    </div>
+                </div>
+                <p>全ての要素を統合。カフェ、オフィス、宿泊エリアの動線が交差しつつも、セキュリティが確保された複雑かつ魅力的なゾーニング。</p>
+                <div class="image-gallery">
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🌐</span>The Hub<br>(生成待ち)</div>
+                        <div class="caption">全機能が交差する象徴的な空間</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>🌿</span>中庭・テラス<br>(生成待ち)</div>
+                        <div class="caption">カフェとオフィスを繋ぐ外部空間</div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="placeholder"><span>✨</span>全体イメージ<br>(生成待ち)</div>
+                        <div class="caption">職・住・遊が融合したライフスタイル</div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section>
+            <h2>比較サマリー</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>パターン</th>
+                        <th>推奨面積</th>
+                        <th>想定賃料 (月額)</th>
+                        <th>主な特徴</th>
+                        <th>コスト感 (初期・内装)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>A (Core)</strong></td>
+                        <td>130-165㎡ (40-50坪)</td>
+                        <td>100〜150万円</td>
+                        <td>オープンラウンジ、会議室、プロジェクトルーム</td>
+                        <td>ベース</td>
+                    </tr>
+                    <tr>
+                        <td><strong>B (+Stay)</strong></td>
+                        <td>165-200㎡ (50-60坪)</td>
+                        <td>125〜180万円</td>
+                        <td>＋ゲストルーム、シャワー、プライベートゾーン</td>
+                        <td>中（＋水回り工事）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C (+Cafe)</strong></td>
+                        <td>180-215㎡ (55-65坪)</td>
+                        <td>165〜230万円</td>
+                        <td>＋カフェエリア、厨房、セキュリティゲート</td>
+                        <td>高（＋厨房設備）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>D (Full)</strong></td>
+                        <td>215-265㎡ (65-80坪)</td>
+                        <td>195〜280万円</td>
+                        <td>全機能搭載</td>
+                        <td>最高</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <footer>
+        &copy; 2025 Questry Inc. Office Project
+    </footer>
+
+</body>
+
+</html>
